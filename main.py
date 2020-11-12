@@ -3,10 +3,11 @@ import pafy
 
 from flask import Flask, request, jsonify, url_for, abort, render_template
 from flask_ngrok import run_with_ngrok
+from threading import Timer
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-run_with_ngrok(app)  # Start ngrok when app is run
+#run_with_ngrok(app)  # Start ngrok when app is run
 
 # Create some test data for our catalog in the form of a list of dictionaries.
 # books = [
@@ -67,5 +68,10 @@ def download():
     return url_for('static', filename = vType + '/' + path)
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', port=3176, debug=True)
-    app.run()
+    app.run(port=3176, debug=True)
+    #app.run()
+
+#Steps to put it online:
+# 1. lt --port 3176 --subdomain zachan0001
+# 2. NameCheap redirect
+# 3. python main.py

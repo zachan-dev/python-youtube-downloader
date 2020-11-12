@@ -26,7 +26,7 @@ function download(url, type) {
         data: JSON.stringify(data),
         success: downloadSuccessCallback,
         error: function(error){
-            alert("Error! Please make sure the Youtube URL is correct");
+            alert("Error! Please make sure the Youtube URL is correct.\n\nSometimes this can be solved by downloading again.\n\nIf you experience difficulty after retrying, please don't hesitate to contact Zach Chan.");
         }
     });
 }
