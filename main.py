@@ -1,5 +1,7 @@
 import flask
 import pafy
+import os
+import subprocess
 
 from flask import Flask, request, jsonify, url_for, abort, render_template
 from flask_ngrok import run_with_ngrok
@@ -27,6 +29,8 @@ app.config["DEBUG"] = True
 #      'first_sentence': 'to wound the autumnal city.',
 #      'published': '1975'}
 # ]
+#CurrentFileName = './static/audio/LiSA 『炎』 -MUSiC CLiP-.m4a'
+#FinalFileName = './static/audio/LiSA 『炎』 -MUSiC CLiP-.mp3'
 
 
 @app.route('/', methods=['GET'])
@@ -54,8 +58,11 @@ def download():
     v = pafy.new(vUrl)
 
     #logger
-    with open('log.txt', 'a') as the_file:
-        the_file.write('{0} {1} {2} {3}\n'.format(ip, vType, vUrl, v.title))
+    try:
+        with open('log.txt', 'a') as the_file:
+            the_file.write('{0} {1} {2} {3}\n'.format(ip, vType, vUrl, v.title))
+    except:
+        pass
 
     path = 'error'
     if (vType == "video"):
@@ -64,6 +71,10 @@ def download():
     else:
         v.getbestaudio('m4a').download(server_path)
         path = v.title + '.m4a'
+        #mp3_path = v.title + '.mp3'
+        #subprocess.call(['ffmpeg', '-y', '-i', './static/audio/' + path, './static/audio/' + mp3_path]) # convert m4a to mp3
+        #subprocess.call(['ffmpeg', '-y', '-i', CurrentFileName, FinalFileName])
+        #os.remove(server_path + '/' + path)
 
     return url_for('static', filename = vType + '/' + path)
 

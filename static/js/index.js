@@ -1,17 +1,37 @@
 "use strict";
 $(document).ready(function(){
     console.log('him');
+
+    $('#form').submit(function(e) {
+        e.preventDefault();
+        console.log($('#form-url').val());
+        console.log($('#form-type').val());
+    
+        var url = $('#form-url').val();
+        var type = $('#form-type').val();
+        download(url, type);
+    });
+    
+    $('#facebook').click(function() {
+        window.open('https://www.facebook.com/zachchan.11');
+    });
+
+    $('#twitter').click(function() {
+        window.open('https://twitter.com/ZachChan10');
+    });
+
+    $('#instagram').click(function() {
+        window.open('https://www.instagram.com/zach_csh/');
+    });
+
+    $('#patreon').click(function() {
+        window.open('https://www.patreon.com/zachchan');
+    });
+
+    $('#linkedin').click(function() {
+        window.open('https://www.linkedin.com/in/zach-chan-hk/');
+    });
 }); 
-
-$('#form').submit(function(e) {
-    e.preventDefault();
-    console.log($('#form-url').val());
-    console.log($('#form-type').val());
-
-    var url = $('#form-url').val();
-    var type = $('#form-type').val();
-    download(url, type);
-});
 
 function download(url, type) {
     var data = {
